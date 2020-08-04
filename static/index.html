@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Actix Discord Demo</title>
+    <style>
+        body {
+            background: #242424;
+            color: white;
+            width: 35em;
+            margin: 0 auto;
+            font-family: Tahoma, Verdana, Arial, sans-serif;
+        }
+        
+        a {
+            color: white;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body onload="load()">
+    <h1>Actix Web Discord OAuth2 Demo</h1>
+    <p id="welcome">Oh hi, why don't we <a href="/login">login</a>?</p>
+    <script>
+        function load() {
+            var element = document.getElementById("welcome");
+            return fetch('/@me', {
+                credentials: "same-origin"
+            }).then(function(req) {
+                if (req.ok) {
+                    req.json().then(function(json) {
+                        console.dir(json);
+                        element.innerHTML = `Oh, hello ${json.username}#${json.discriminator}. Would you like to <a href="/logout">logout</a>?`;
+                    });
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
